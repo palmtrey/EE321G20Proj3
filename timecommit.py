@@ -27,4 +27,4 @@ elif (choice == 2):
 	os.system("git commit -m " + '"' +  message + '"')
 	os.system("git push origin main")
 else:
-	print("You failed!")
+	print("Please enter either 1 or 2")
