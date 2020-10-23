@@ -25,9 +25,11 @@ OMEGA = (2*PI)/T
 # How many components? A metric shit ton for our "original" (or as close to original as we can get) signal
 N = 10000
 
+NArray = np.array(np.arange(0, T, 0.01).tolist())
+
 # Create an independent variable t to fit exactly one period T
 indep_var = np.array(np.arange(0, T, 0.01).tolist())
-almostPerfectSquare = np.array([(d/T) * np.sinc((k*OMEGA*d) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int((-N/2)), int(N/2))]).sum(axis=0)
+almostPerfectSquare = np.array([(d/T) * (((m.sin((k*OMEGA*d)))/(k*OMEGA*d)) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int((1)), int(N))]).sum(axis=0)
 
 
 print(almostPerfectSquare)
