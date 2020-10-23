@@ -14,27 +14,28 @@ PI = np.pi  # Pi
 j = complex(0, 1)  # A complex number
 e = m.e
 T = 4  # Period between pulses
-d = 2  # The length of the pulse
+d = 1  # The length of the pulse
 OMEGA = (2*PI)/T
 
+def sincMe(x):
+    y = 0
+    if x != 0:
+        y = np.sin(x)/x
+    return y
 
-# Define the constant for the number of terms that will reach us an "almost perfect" series of pulses.
-# This will be the standard for what signals of lower constant 'N's will be compared to, as there isn't a nice way to
-# represent a series of pulses in Python.
-
-# How many components? A metric shit ton for our "original" (or as close to original as we can get) signal
+# How many components to create and sum (a large number)
 N = 10000
 
-NArray = np.array(np.arange(0, T, 0.01).tolist())
+NArray = np.array(np.arange(10, 10000, 10).tolist())
 
 # Create an independent variable t to fit exactly one period T
 indep_var = np.array(np.arange(0, T, 0.01).tolist())
-almostPerfectSquare = np.array([(d/T) * (((m.sin((k*OMEGA*d)))/(k*OMEGA*d)) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int((1)), int(N))]).sum(axis=0)
+almostPerfectSquare = np.array([(d/T) * ((sincMe((k*OMEGA*d))) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int(-N/2), int(N/2))]).sum(axis=0)
 
+#allSignalsOfN = np.array([(d/T) * (((m.sin((k*OMEGA*d)))/(k*OMEGA*d)) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int(1), NArray)]).sum(axis=0)
 
-print(almostPerfectSquare)
 # Actual real one period of signal x1(t)
-x = 1*((indep_var <= 1) | ((indep_var >= 3) & (indep_var <= 4)))
+x = 1*((indep_var <= d) | ((indep_var >= (T-1)) & (indep_var <= T)))
 
 plt.figure(0)
 plt.plot(indep_var, x)
