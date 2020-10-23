@@ -30,12 +30,12 @@ NArray = np.array(np.arange(10, 10000, 10).tolist())
 
 # Create an independent variable t to fit exactly one period T
 indep_var = np.array(np.arange(0, T, 0.01).tolist())
-almostPerfectSquare = np.array([(d/T) * ((sincMe((k*OMEGA*d))) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int(-N/2), int(N/2))]).sum(axis=0)
+almostPerfectSquare = np.array([(d/T) * ((sincMe((k*OMEGA*d * (1/2)))))*e**(j*k*OMEGA*indep_var) for k in range(int(-N/2), int(N/2))]).sum(axis=0)
 
 #allSignalsOfN = np.array([(d/T) * (((m.sin((k*OMEGA*d)))/(k*OMEGA*d)) * (1/2))*e**(j*k*OMEGA*indep_var) for k in range(int(1), NArray)]).sum(axis=0)
 
 # Actual real one period of signal x1(t)
-x = 1*((indep_var <= d) | ((indep_var >= (T-1)) & (indep_var <= T)))
+x = 1*((indep_var <= 1) | ((indep_var >= (T-1)) & (indep_var <= T)))
 
 plt.figure(0)
 plt.plot(indep_var, x)
